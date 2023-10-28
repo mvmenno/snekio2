@@ -7,8 +7,15 @@ export class GUIMainMenu {
     
     public shadersEnabled: boolean = true;
 
-    constructor() {
-        this.advancedDynamicTexture = AdvancedDynamicTexture.CreateFullscreenUI("MainMenu");
+    constructor(advancedDynamicTexture: AdvancedDynamicTexture) {
+        this.advancedDynamicTexture = advancedDynamicTexture;
+    }
+
+    create() {
+        this.createTitle();
+        this.createFieldNickName();
+        this.createButtonPlay();
+        this.createToggleShaders();
     }
 
     createTitle() {

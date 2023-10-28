@@ -5,19 +5,20 @@ import { Material } from "./material";
 export class Scene extends BabylonScene {
     private world: World;
     private material: Material;
-    public camera: ArcRotateCamera;
+    public camera: ArcRotateCamera | undefined;
 
     constructor(engine: Engine, world: World) {
         super(engine);
 
         this.world = world;
         this.material = new Material(this);
-        this.camera = new ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, new Vector3(0, 0, 5), this);
-
-        this.createScene();
+        this.create();
     }
 
-    createScene() {
+    create(){
+        this.clearColor = new BABYLON.Color4(0,0,0,1);
+        this.blockfreeActiveMeshesAndRenderingGroups = true;
+        this.camera = new ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, new Vector3(0, 0, 5), this);
     }
 
     createBoundingBox() {

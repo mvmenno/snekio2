@@ -14,7 +14,7 @@ class GameServer {
     private io: socketIo.Server;
     private port: number = 3000;
     private server: Server;
-    private players: PlayerState[] = [];
+    private players: Array<PlayerState> = [];
     private serverFPS: number = 20;
     private food: Food;
     private collision: Collision;
@@ -69,15 +69,20 @@ class GameServer {
             this.io.to(socket.id).emit('player-created', player);
         });
     }
+
+    private findPlayerIndexById(id: string): number {
+        return this.players.findIndex((x) => { return x.id === id});
+    }
+
     private onPlayerDisconnect(socket: socketIo.Socket) {
         socket.on('disconnect', () => {
             console.log('client disconnected %s', socket.id);
-            delete this.players[socket.id];
+            delete this.players[this.findPlayerIndexById(socket.id)];
         });
     }
     private onPlayerMove(socket: socketIo.Socket) {
-        socket.on('move-player', function (state: PlayerState) {
-            this.players[socket.id].angle = state.angle;
+        socket.on('move-player', (state: PlayerState) => {
+            this.players[this.findPlayerIndexById(socket.id)].angle = state.angle;
         });
     }
 

@@ -6,8 +6,8 @@ export class GUIGame {
     public scoreText : TextBlock = new TextBlock();
     public highScoreText : TextBlock = new TextBlock();
 
-    constructor() {
-        this.advancedDynamicTexture = AdvancedDynamicTexture.CreateFullscreenUI("Game");
+    constructor(advancedDynamicTexture: AdvancedDynamicTexture) {
+        this.advancedDynamicTexture = advancedDynamicTexture;
     }
 
     createScore() {

@@ -1,3 +1,4 @@
+import { AdvancedDynamicTexture } from "babylonjs-gui";
 import { GUIGame } from "./guiGame";
 import { GUIMainMenu } from "./guiMainMenu";
 
@@ -7,13 +8,17 @@ export class GUI {
     private guiGame : GUIGame | undefined;
     private showMainMenu : boolean = true;
     private isMainMenu : boolean = true;
+    private advancedDynamicTexture : AdvancedDynamicTexture;
 
     constructor() {
-        this.guiMainMenu = new GUIMainMenu();
+        this.advancedDynamicTexture = AdvancedDynamicTexture.CreateFullscreenUI("UI");
+        this.advancedDynamicTexture.isForeground = true;
+        this.createMainMenu();
     }
 
     createMainMenu() {
-        this.guiMainMenu = new GUIMainMenu();
+        this.guiMainMenu = new GUIMainMenu(this.advancedDynamicTexture);
+        this.guiMainMenu.create();
     }
 
     disposeMainMenu() {
@@ -21,7 +26,7 @@ export class GUI {
     }
 
     createGame() {
-        this.guiGame = new GUIGame();
+        this.guiGame = new GUIGame(this.advancedDynamicTexture);
     }
 
     disposeGame() {
@@ -29,6 +34,7 @@ export class GUI {
     }
 
     checkState() {
+        return;
         if (!this.showMainMenu) {
             this.disposeMainMenu();
             this.createGame();
